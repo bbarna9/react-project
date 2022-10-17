@@ -2,6 +2,9 @@ import express from 'express';
 import data from './data.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import seedRouter from './routes/seedRoutes.js';
+import bookRouter from './routes/bookRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 // Fetching data from the .env file
 dotenv.config();
@@ -18,25 +21,15 @@ mongoose
 
 const app = express();
 
-app.get('/api/books', (req, res) => {
-  res.send(data.books);
-});
-app.get('/api/books/key/:key', (req, res) => {
-  const book = data.books.find((x) => x.key === req.params.key);
-  if (book) {
-    res.send(book);
-  } else {
-    res.status(404).send({ message: 'Nincs ilyen könyv' });
-  }
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/books/:id', (req, res) => {
-  const book = data.books.find((x) => x._id === req.params.id);
-  if (book) {
-    res.send(book);
-  } else {
-    res.status(404).send({ message: 'Nincs ilyen könyv' });
-  }
+app.use('/api/seed', seedRouter);
+app.use('/api/books', bookRouter);
+app.use('/api/users', userRouter);
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
 });
 
 const port = process.env.PORT || 5000;
