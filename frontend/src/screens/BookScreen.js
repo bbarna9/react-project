@@ -50,10 +50,19 @@ function ProductScreen() {
   }, [key]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const addToCartHandler = () => {
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    const alreadyExists = cart.cartItems.find((x) => x._id === book._id);
+    const quantity = alreadyExists ? alreadyExists.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/books/${book._id}`);
+    if (data.stock < quantity) {
+      window.alert('Nincs több készleten');
+      return;
+    }
+
     ctxDispatch({
       type: 'ADD_TO_CART',
-      payload: { ...book, quantity: 1 },
+      payload: { ...book, quantity },
     });
   };
   return loading ? (

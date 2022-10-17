@@ -1,6 +1,7 @@
 const data = {
   books: [
     {
+      _id: '1',
       title: 'Metro 2033',
       key: 'metro-2033',
       category: 'Metro series',
@@ -15,6 +16,7 @@ const data = {
       stock: 3,
     },
     {
+      _id: '2',
       title: 'Metro 2034',
       key: 'metro-2034',
       category: 'Metro series',
@@ -29,6 +31,7 @@ const data = {
       stock: 0,
     },
     {
+      _id: '3',
       title: 'Metro 2035',
       key: 'metro-2035',
       category: 'Metro series',
