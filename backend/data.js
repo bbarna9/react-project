@@ -34,7 +34,7 @@ const data = {
       category: 'Metro series',
       image: '/img/metro2035.png',
       author: 'Dmitry Glukhovsky',
-      rating: 5,
+      rating: 3.5,
       reviews: 10,
       release: 2017,
       page: 482,

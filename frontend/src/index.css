@@ -7,9 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-header {
-  background-color: #404040;
-  padding: 1rem;
+.site-container {
+  min-height: 100vh;
 }
 
 header > a {
@@ -19,13 +18,23 @@ header > a {
 }
 
 main {
-  padding: 1rem;
+  flex: 1;
+}
+
+.btn-primary {
+  background-color: coral;
+  color: black;
+  font-weight: bolder;
 }
 
 .books {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.rating > span {
+  color: #ffc000;
 }
 
 .book {
@@ -40,4 +49,8 @@ main {
 
 .book > p {
   padding-left: 1rem;
+}
+
+.img-large {
+  max-width: 100%;
 }

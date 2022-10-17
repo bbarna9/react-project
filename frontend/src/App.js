@@ -1,20 +1,50 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import BookScreen from './screens/BookScreen';
+import Navbar from 'react-bootstrap/Navbar';
+import Badge from 'react-bootstrap/Badge';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import { LinkContainer } from 'react-router-bootstrap';
+import { useContext } from 'react';
+import { Store } from './Store';
 
 function App() {
+  const { state } = useContext(Store);
+  const { cart } = state;
   return (
     <BrowserRouter>
-      <div>
+      <div className="d-flex flex-column site-container">
         <header>
-          <Link to="/">Bookshop</Link>
+          <Navbar bg="dark" variant="dark">
+            <Container>
+              <LinkContainer to="/">
+                <Navbar.Brand>bookshop</Navbar.Brand>
+              </LinkContainer>
+              <Nav className="me-auto">
+                <Link to="/cart" className="nav-link">
+                  Cart
+                  {cart.cartItems.length > 0 && (
+                    <Badge pill bg="danger">
+                      {cart.cartItems.length}
+                    </Badge>
+                  )}
+                </Link>
+              </Nav>
+            </Container>
+          </Navbar>
         </header>
         <main>
-          <Routes>
-            <Route path="/book/:key" element={<BookScreen />} />
-            <Route path="/" element={<HomeScreen />} />
-          </Routes>
+          <Container className="mt-3">
+            <Routes>
+              <Route path="/book/:key" element={<BookScreen />} />
+              <Route path="/" element={<HomeScreen />} />
+            </Routes>
+          </Container>
         </main>
+        <footer>
+          <div className="text-center">All rights reserved</div>
+        </footer>
       </div>
     </BrowserRouter>
   );
