@@ -17,3 +17,27 @@ header > a {
   color: white;
   font-weight: bold;
 }
+
+main {
+  padding: 1rem;
+}
+
+.books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book {
+  border: 1px solid black;
+  margin: 1rem;
+}
+
+.book > img {
+  width: 100%;
+  max-width: 400px;
+}
+
+.book > p {
+  padding-left: 1rem;
+}

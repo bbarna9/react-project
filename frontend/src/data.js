@@ -1,0 +1,48 @@
+const data = {
+  books: [
+    {
+      title: 'Metro 2033',
+      key: 'metro-2033',
+      category: 'Metro series',
+      image: '/img/metro2033.png',
+      author: 'Dmitry Glukhovsky',
+      rating: 5,
+      numReviews: 10,
+      release: 2011,
+      page: 439,
+      price: 10,
+      description: 'Poszt apokaliptikus világ',
+      stock: 3,
+    },
+    {
+      title: 'Metro 2034',
+      key: 'metro-2034',
+      category: 'Metro series',
+      image: '/img/metro2034.png',
+      author: 'Dmitry Glukhovsky',
+      rating: 5,
+      numReviews: 10,
+      release: 2011,
+      page: 271,
+      price: 10,
+      description: 'Poszt apokaliptikus világ',
+      stock: 0,
+    },
+    {
+      title: 'Metro 2035',
+      key: 'metro-2035',
+      category: 'Metro series',
+      image: '/img/metro2035.png',
+      author: 'Dmitry Glukhovsky',
+      rating: 5,
+      numReviews: 10,
+      release: 2017,
+      page: 482,
+      price: 10,
+      description: 'Poszt apokaliptikus világ',
+      stock: 3,
+    },
+  ],
+};
+
+export default data;
