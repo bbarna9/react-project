@@ -23,4 +23,17 @@ orderRouter.post(
     res.status(201).send({ message: 'Új rendelés leadva', order });
   })
 );
+
+orderRouter.get(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      res.send(order);
+    } else {
+      res.status(404).send({ message: 'Nincs ilyen rendelés' });
+    }
+  })
+);
 export default orderRouter;
