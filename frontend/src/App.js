@@ -21,10 +21,18 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import PreviousOrdersScreen from './screens/PreviousOrdersScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ProtectedRoute from './components/ProtectedRoute';
 import { getError } from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
+import DashboardScreen from './screens/DashboardScreen';
+import BookListScreen from './screens/BookListScreen';
+import AdminRoute from './components/AdminRoute';
+import EditScreen from './screens/EditScreen';
+import OrderListScreen from './screens/OrderListScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -92,7 +100,7 @@ function App() {
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>Fiók</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/orders">
+                      <LinkContainer to="/orderhistory">
                         <NavDropdown.Item>Rendeléseim</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
@@ -108,6 +116,22 @@ function App() {
                     <Link className="nav-link" to="/login">
                       Bejelentkezés
                     </Link>
+                  )}
+                  {userInfo && userInfo.admin && (
+                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                      <LinkContainer to="/admin/dashboard">
+                        <NavDropdown.Item>Kezelői felület</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/booklist">
+                        <NavDropdown.Item>Termékek</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orderlist">
+                        <NavDropdown.Item>Rendelések</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/userlist">
+                        <NavDropdown.Item>Felhasználók</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
                   )}
                 </Nav>
               </Navbar.Collapse>
@@ -147,10 +171,81 @@ function App() {
               <Route path="/shipping" element={<ShippingScreen />} />
               <Route path="/payment" element={<PaymentScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
-              <Route path="/orders" element={<PreviousOrdersScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
+              <Route
+                path="/order/:id"
+                element={
+                  <ProtectedRoute>
+                    <OrderScreen />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/orderhistory"
+                element={
+                  <ProtectedRoute>
+                    <PreviousOrdersScreen />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfileScreen />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/search" element={<SearchScreen />} />
+              {/* Admin Routes */}
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminRoute>
+                    <DashboardScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/booklist"
+                element={
+                  <AdminRoute>
+                    <BookListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/book/:id"
+                element={
+                  <AdminRoute>
+                    <EditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/user/:id"
+                element={
+                  <AdminRoute>
+                    <UserEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/orderlist"
+                element={
+                  <AdminRoute>
+                    <OrderListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/userlist"
+                element={
+                  <AdminRoute>
+                    <UserListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>

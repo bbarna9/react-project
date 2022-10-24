@@ -13,6 +13,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils.js';
+import { Link } from 'react-router-dom';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -27,7 +28,7 @@ const reducer = (state, action) => {
   }
 };
 
-function ProductScreen() {
+function BookScreen() {
   const params = useParams();
   const { key } = params;
 
@@ -84,11 +85,15 @@ function ProductScreen() {
               <h1>{book.title}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
+              <p>{book.author}</p>
+            </ListGroup.Item>
+            <ListGroup.Item>{book.subcategory}</ListGroup.Item>
+            <ListGroup.Item>
               <Rating rating={book.rating} reviews={book.reviews}></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Pirce : ${book.price}</ListGroup.Item>
+            <ListGroup.Item>Ár: {book.price} Ft</ListGroup.Item>
             <ListGroup.Item>
-              Description:
+              Leírás:
               <p>{book.description}</p>
             </ListGroup.Item>
           </ListGroup>
@@ -99,18 +104,18 @@ function ProductScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Price:</Col>
-                    <Col>${book.price}</Col>
+                    <Col>Ár:</Col>
+                    <Col>{book.price} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Status:</Col>
+                    <Col>Elérhetőség:</Col>
                     <Col>
                       {book.stock > 0 ? (
-                        <Badge bg="success">In Stock</Badge>
+                        <Badge bg="success">Készleten</Badge>
                       ) : (
-                        <Badge bg="danger">Unavailable</Badge>
+                        <Badge bg="danger">Nem elérhető</Badge>
                       )}
                     </Col>
                   </Row>
@@ -120,7 +125,7 @@ function ProductScreen() {
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
-                        Add to Cart
+                        Kosárba
                       </Button>
                     </div>
                   </ListGroup.Item>
@@ -133,4 +138,4 @@ function ProductScreen() {
     </div>
   );
 }
-export default ProductScreen;
+export default BookScreen;

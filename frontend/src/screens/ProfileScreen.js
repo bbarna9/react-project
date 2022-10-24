@@ -15,6 +15,7 @@ const reducer = (state, action) => {
       return { ...state, loadingUpdate: false };
     case 'UPDATE_FAILED':
       return { ...state, loadingUpdate: false };
+
     default:
       return state;
   }
@@ -42,16 +43,20 @@ export default function ProfileScreen() {
           email,
           password,
         },
-        { headers: { authorization: `Bearer ${userInfo.token}` } }
+        {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        }
       );
       dispatch({
         type: 'UPDATE_SUCCESSFUL',
       });
       ctxDispatch({ type: 'USER_LOGIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
-      toast.success('Profil sikeresen frissítve');
+      toast.success('Felhasználó frissítve');
     } catch (err) {
-      dispatch({ type: 'FETCH_FAILED' });
+      dispatch({
+        type: 'FETCH_FAILED',
+      });
       toast.error(getError(err));
     }
   };
@@ -59,11 +64,11 @@ export default function ProfileScreen() {
   return (
     <div className="container small-container">
       <Helmet>
-        <title>Felhasználói fiók</title>
+        <title>Fiók</title>
       </Helmet>
-      <h1 className="my-3">Felhasználói fiók</h1>
+      <h1 className="my-3">Fiók</h1>
       <form onSubmit={submitHandler}>
-        <Form.Group className="mb-3" controllId="name">
+        <Form.Group className="mb-3" controlId="name">
           <Form.Label>Név</Form.Label>
           <Form.Control
             value={name}
@@ -71,7 +76,7 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controllId="email">
+        <Form.Group className="mb-3" controlId="name">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -80,14 +85,14 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controllId="password">
+        <Form.Group className="mb-3" controlId="password">
           <Form.Label>Jelszó</Form.Label>
           <Form.Control
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controllId="password">
+        <Form.Group className="mb-3" controlId="password">
           <Form.Label>Jelszó megerősítése</Form.Label>
           <Form.Control
             type="password"

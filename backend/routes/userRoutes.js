@@ -1,10 +1,53 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import User from '../models/user.js';
-import { generateToken, isAuth } from '../utils.js';
 import expressAsyncHandler from 'express-async-handler';
+import User from '../models/user.js';
+import { isAuth, isAdmin, generateToken } from '../utils.js';
 
 const userRouter = express.Router();
+
+userRouter.get(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
+  })
+);
+
+userRouter.get(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'Nincs ilyen felhasználó' });
+    }
+  })
+);
+
+userRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.email === 'benjamin@admin.com') {
+        res.status(400).send({ message: 'Nem lehet admint törölni' });
+        return;
+      }
+      await user.remove();
+      res.send({ message: 'Felhasználó törölve' });
+    } else {
+      res.status(404).send({ message: 'Nincs ilyen felhasználó' });
+    }
+  })
+);
 
 userRouter.post(
   '/login',
@@ -22,8 +65,6 @@ userRouter.post(
         return;
       }
     }
-
-    // Unauthorized status code
     res.status(401).send({ message: 'Hibás email vagy jelszó' });
   })
 );
@@ -58,6 +99,7 @@ userRouter.put(
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
+
       const updatedUser = await user.save();
       res.send({
         _id: updatedUser._id,
@@ -66,6 +108,24 @@ userRouter.put(
         admin: updatedUser.admin,
         token: generateToken(updatedUser),
       });
+    } else {
+      res.status(404).send({ message: 'Nincs ilyen felhasználó' });
+    }
+  })
+);
+
+userRouter.put(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.admin = Boolean(req.body.admin);
+      const updatedUser = await user.save();
+      res.send({ message: 'Felhasználó frissítve', user: updatedUser });
     } else {
       res.status(404).send({ message: 'Nincs ilyen felhasználó' });
     }

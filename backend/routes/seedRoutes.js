@@ -1,5 +1,5 @@
 import express from 'express';
-import Book from '../models/book.js';
+import Book from '../models/bookModel.js';
 import data from '../data.js';
 import User from '../models/user.js';
 

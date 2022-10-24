@@ -10,7 +10,6 @@ import Rating from '../components/Rating';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
-import LinkContainer from 'react-router-bootstrap/LinkContainer';
 import Book from '../components/Book';
 
 const reducer = (state, action) => {
@@ -76,6 +75,7 @@ export default function SearchScreen() {
   const { search } = useLocation();
   const sp = new URLSearchParams(search); // /search?category=Shirts
   const category = sp.get('category') || 'all';
+  // const subcategory = sp.get('subcategory') || 'all';
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
   const rating = sp.get('rating') || 'all';
@@ -94,6 +94,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
+          // `/api/books/search?page=${page}&query=${query}&category=${category}&subcategory=${subcategory}&price=${price}&rating=${rating}&order=${order}`
           `/api/books/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
         );
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -105,6 +106,7 @@ export default function SearchScreen() {
       }
     };
     fetchData();
+    // }, [category, subcategory, error, order, page, price, query, rating]);
   }, [category, error, order, page, price, query, rating]);
 
   const [categories, setCategories] = useState([]);
@@ -120,24 +122,40 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
+  /*
+  const [subCategories, setSubCategories] = useState([]);
+  useEffect(() => {
+    const fetchSubCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/books/subcategories`);
+        setSubCategories(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchSubCategories();
+  }, [dispatch]); */
+
   const getFilterUrl = (filter) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
+    // const filterSubCategory = filter.subcategory || subcategory;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
+    // return `/search?category=${filterCategory}&subcategory=${filterSubCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
     return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
       <Helmet>
-        <title>Search Products</title>
+        <title>Keresés</title>
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Szűrők</h3>
           <div>
+            <h3>Műfaj</h3>
             <ul>
               <li>
                 <Link
@@ -159,8 +177,9 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
+
           <div>
-            <h3>Price</h3>
+            <h3>Ár</h3>
             <ul>
               <li>
                 <Link
@@ -285,3 +304,33 @@ export default function SearchScreen() {
     </div>
   );
 }
+
+/*
+
+Alkategória kereső
+
+<div>
+            <h3>Sorozat</h3>
+            <ul>
+              <li>
+                <Link
+                  className={'all' === subcategory ? 'text-bold' : ''}
+                  to={getFilterUrl({ subcategory: 'all' })}
+                >
+                  Bármi
+                </Link>
+              </li>
+              {subCategories.map((c) => (
+                <li key={c}>
+                  <Link
+                    className={c === subcategory ? 'text-bold' : ''}
+                    to={getFilterUrl({ subcategory: c })}
+                  >
+                    {c}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+*/
