@@ -53,7 +53,7 @@ export default function PreviousOrdersScreen() {
       <Helmet>
         <title>Korábbi rendelések</title>
       </Helmet>
-      <h1>Korábbi rendelések</h1>
+      <h1 className="subHeader">Korábbi rendelések</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -62,33 +62,36 @@ export default function PreviousOrdersScreen() {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>DÁTUM</th>
-              <th>ÖSSZEG</th>
-              <th>FIZETVE</th>
-              <th>KISZÁLLÍTVA</th>
-              <th>EGYÉB</th>
+              <th className="theader">ID</th>
+              <th className="theader">DÁTUM</th>
+              <th className="theader">ÖSSZEG</th>
+              <th className="theader">FIZETVE</th>
+              <th className="theader">KISZÁLLÍTVA</th>
+              <th className="theader">EGYÉB</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice.toFixed(2)}</td>
-                <td>
+                <td className="tableText">{order._id}</td>
+                <td className="tableText">
+                  {order.createdAt.substring(0, 10)}
+                </td>
+                <td className="tableText">{order.totalPrice.toFixed(0)}</td>
+                <td className="tableText">
                   {order.isPaid
                     ? order.paidAt.substring(0, 10)
                     : 'Nincs kifizetve'}
                 </td>
-                <td>
+                <td className="tableText">
                   {order.isDelivered
                     ? order.deliveredAt.substring(0, 10)
                     : 'Nincs kiszállítva'}
                 </td>
-                <td>
+                <td className="tableText">
                   <Button
                     type="button"
+                    className="extra-btn"
                     variant="light"
                     onClick={() => {
                       navigate(`/order/${order._id}`);

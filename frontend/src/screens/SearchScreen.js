@@ -148,18 +148,18 @@ export default function SearchScreen() {
     return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
-    <div>
+    <div className="search-screen">
       <Helmet>
         <title>Keresés</title>
       </Helmet>
       <Row>
         <Col md={3}>
           <div>
-            <h3>Műfaj</h3>
-            <ul>
+            <h3 className="list-header">Műfaj</h3>
+            <ul className="list">
               <li>
                 <Link
-                  className={'all' === category ? 'text-bold' : ''}
+                  className={'all' === category ? 'text-bold' : 'searchText'}
                   to={getFilterUrl({ category: 'all' })}
                 >
                   Bármi
@@ -168,7 +168,7 @@ export default function SearchScreen() {
               {categories.map((c) => (
                 <li key={c}>
                   <Link
-                    className={c === category ? 'text-bold' : ''}
+                    className={c === category ? 'text-bold' : 'searchText'}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
@@ -179,11 +179,11 @@ export default function SearchScreen() {
           </div>
 
           <div>
-            <h3>Ár</h3>
-            <ul>
+            <h3 className="list-header">Ár</h3>
+            <ul className="list">
               <li>
                 <Link
-                  className={'all' === price ? 'text-bold' : ''}
+                  className={'all' === price ? 'text-bold' : 'searchText'}
                   to={getFilterUrl({ price: 'all' })}
                 >
                   Bármi
@@ -193,7 +193,7 @@ export default function SearchScreen() {
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? 'text-bold' : ''}
+                    className={p.value === price ? 'text-bold' : 'searchText'}
                   >
                     {p.name}
                   </Link>
@@ -202,13 +202,15 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Átlag értékelések</h3>
-            <ul>
+            <h3 className="list-header">Átlag értékelések</h3>
+            <ul className="list">
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
+                    className={
+                      `${r.rating}` === `${rating}` ? 'text-bold' : 'searchText'
+                    }
                   >
                     <Rating caption={' vagy jobb'} rating={r.rating}></Rating>
                   </Link>
@@ -217,7 +219,7 @@ export default function SearchScreen() {
               <li>
                 <Link
                   to={getFilterUrl({ rating: 'all' })}
-                  className={rating === 'all' ? 'text-bold' : ''}
+                  className={rating === 'all' ? 'text-bold' : 'searchText'}
                 >
                   <Rating caption={' vagy jobb'} rating={0}></Rating>
                 </Link>
@@ -234,7 +236,7 @@ export default function SearchScreen() {
             <>
               <Row className="justify-content-between mb-3">
                 <Col md={6}>
-                  <div>
+                  <div className="sort-text">
                     {countBooks === 0 ? 'Nincs' : countBooks} Eredmények
                     {query !== 'all' && ' : ' + query}
                     {category !== 'all' && ' : ' + category}
@@ -248,6 +250,7 @@ export default function SearchScreen() {
                       <Button
                         variant="light"
                         onClick={() => navigate('/search')}
+                        className="sort-btn"
                       >
                         <i>Szűrők törlése</i>
                       </Button>
@@ -257,6 +260,7 @@ export default function SearchScreen() {
                 <Col className="text-end">
                   Rendezés:{' '}
                   <select
+                    className="select-bar"
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));
@@ -289,8 +293,12 @@ export default function SearchScreen() {
                     to={getFilterUrl({ page: x + 1 })}
                   >
                     <Button
-                      className={Number(page) === x + 1 ? 'text-bold' : ''}
-                      variant="light"
+                      className={
+                        Number(page) === x + 1
+                          ? 'text-bold page-btn'
+                          : 'page-btn'
+                      }
+                      variant="dark"
                     >
                       {x + 1}
                     </Button>

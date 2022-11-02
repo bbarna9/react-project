@@ -42,7 +42,7 @@ export default function CartScreen() {
       <Helmet>
         <title>Kosár</title>
       </Helmet>
-      <h1>Kosár</h1>
+      <h1 className="subHeader">Kosár</h1>
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -64,7 +64,7 @@ export default function CartScreen() {
                     </Col>
                     <Col md={3}>
                       <Button
-                        variant="light"
+                        variant="dark"
                         onClick={() =>
                           updateCartHandler(item, item.quantity - 1)
                         }
@@ -72,9 +72,10 @@ export default function CartScreen() {
                       >
                         <i className="fas fa-minus-circle"></i>
                       </Button>{' '}
-                      <spam>{item.quantity}</spam>{' '}
+                      &nbsp;
+                      <spam>{item.quantity}</spam> &nbsp;
                       <Button
-                        variant="light"
+                        variant="dark"
                         onClick={() =>
                           updateCartHandler(item, item.quantity + 1)
                         }
@@ -86,7 +87,7 @@ export default function CartScreen() {
                     <Col md={3}>{item.price} Ft</Col>
                     <Col md={2}>
                       <Button
-                        variant="light"
+                        variant="dark"
                         onClick={() => removeItemHandler(item)}
                       >
                         <i className="fas fa-trash"></i>
@@ -111,6 +112,7 @@ export default function CartScreen() {
                 <ListGroup.Item>
                   <div className="d-grid">
                     <Button
+                      className="grid-button"
                       type="button"
                       variant="primary"
                       onClick={checkoutHandler}

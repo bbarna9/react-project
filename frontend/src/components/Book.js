@@ -5,6 +5,8 @@ import Rating from './Rating';
 import axios from 'axios';
 import { Store } from '../Store';
 import { useContext } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function Book(props) {
   const { book } = props;
@@ -29,23 +31,39 @@ function Book(props) {
   };
 
   return (
-    <Card>
-      <Link to={`/book/${book.key}`}>
-        <img src={book.image} className="card-img-top" alt={book.title} />
-      </Link>
+    <Card className="book">
       <Card.Body>
-        <Link to={`/book/${book.key}`}>
-          <Card.Title>{book.title}</Card.Title>
-        </Link>
-        <Rating rating={book.rating} reviews={book.reviews} />
-        <Card.Text>{book.price} Ft</Card.Text>
-        {book.stock === 0 ? (
-          <Button variant="light" disabled>
-            Nincs készleten
-          </Button>
-        ) : (
-          <Button onClick={() => addToCartHandler(book)}>Kosárba</Button>
-        )}
+        <Row>
+          <Col>
+            <Link to={`/book/${book.key}`}>
+              <img src={book.image} className="card-img-top" alt={book.title} />
+            </Link>
+          </Col>
+          <Col className="bookText">
+            <Link className="bookTitleLink" to={`/book/${book.key}`}>
+              <Card.Title className="bookTitle">{book.title}</Card.Title>
+            </Link>
+            <Card.Text>{book.author}</Card.Text>
+            <Rating />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card.Text className="price">{book.price} Ft</Card.Text>
+            {book.stock === 0 ? (
+              <Button variant="light" disabled className="btn-primary">
+                Nincs készleten
+              </Button>
+            ) : (
+              <Button
+                onClick={() => addToCartHandler(book)}
+                className="btn-primary"
+              >
+                Kosárba
+              </Button>
+            )}
+          </Col>
+        </Row>
       </Card.Body>
     </Card>
   );

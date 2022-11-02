@@ -47,7 +47,7 @@ export default function LoginScreen() {
       <Helmet>
         <title>Bejelentkezés</title>
       </Helmet>
-      <h1 className="my-3">Bejelentkezés</h1>
+      <h1 className="subHeader">Bejelentkezés</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>

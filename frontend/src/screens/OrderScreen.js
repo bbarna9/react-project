@@ -144,7 +144,7 @@ export default function OrderScreen() {
           type: 'resetOptions',
           value: {
             'client-id': clientId,
-            currency: 'USD',
+            currency: 'HUF',
           },
         });
         payPalDispatch({ type: 'setLoadingStatus', value: 'pending' });
@@ -188,7 +188,7 @@ export default function OrderScreen() {
       <Helmet>
         <title>Rendelés {orderId}</title>
       </Helmet>
-      <h1 className="my-3">Rendelés {orderId}</h1>
+      <h1 className="subHeader">Rendelés {orderId}</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -258,19 +258,19 @@ export default function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Termékek</Col>
-                    <Col>{order.itemsPrice.toFixed(2)} Ft</Col>
+                    <Col>{order.itemsPrice.toFixed(0)} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Szállítási díj</Col>
-                    <Col>{order.shippingPrice.toFixed(2)} Ft</Col>
+                    <Col>{order.shippingPrice.toFixed(0)} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Adó</Col>
-                    <Col>{order.taxPrice.toFixed(2)} Ft</Col>
+                    <Col>{order.taxPrice.toFixed(0)} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -279,7 +279,7 @@ export default function OrderScreen() {
                       <strong>Összesen</strong>
                     </Col>
                     <Col>
-                      <strong>{order.totalPrice.toFixed(2)} Ft</strong>
+                      <strong>{order.totalPrice.toFixed(0)} Ft</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -303,7 +303,11 @@ export default function OrderScreen() {
                   <ListGroup.Item>
                     {loadingDeliver && <LoadingBox></LoadingBox>}
                     <div className="d-grid">
-                      <Button type="button" onClick={deliverOrderHandler}>
+                      <Button
+                        type="button"
+                        className="grid-button"
+                        onClick={deliverOrderHandler}
+                      >
                         Rendelés szállítása
                       </Button>
                     </div>

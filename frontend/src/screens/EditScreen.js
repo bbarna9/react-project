@@ -56,6 +56,7 @@ export default function EditScreen() {
   const [subcategory, setSubCategory] = useState('');
   const [stock, setStock] = useState('');
   const [price, setPrice] = useState('');
+  const [page, setPage] = useState('');
   const [description, setDescription] = useState('');
 
   useEffect(() => {
@@ -70,6 +71,7 @@ export default function EditScreen() {
         setCategory(data.category);
         setSubCategory(data.subcategory);
         setPrice(data.price);
+        setPage(data.page);
         setStock(data.stock);
         setDescription(data.description);
         dispatch({ type: 'FETCH_SUCCESSFUL' });
@@ -97,6 +99,7 @@ export default function EditScreen() {
           image,
           category,
           subcategory,
+          page,
           price,
           stock,
           description,
@@ -143,14 +146,14 @@ export default function EditScreen() {
       <Helmet>
         <title>Könyv szerkesztése</title>
       </Helmet>
-      <h1>Köny szerkesztése</h1>
+      <h1 className="subHeader">Köny szerkesztése</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controllId="title">
+          <Form.Group className="mb-3 tableText" controllId="title">
             <Form.Label>Cím</Form.Label>
             <Form.Control
               value={title}
@@ -158,7 +161,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="key">
+          <Form.Group className="mb-3 tableText" controllId="key">
             <Form.Label>ID</Form.Label>
             <Form.Control
               value={key}
@@ -166,7 +169,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="image">
+          <Form.Group className="mb-3 tableText" controllId="image">
             <Form.Label>Kép</Form.Label>
             <Form.Control
               value={image}
@@ -174,12 +177,12 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="imageFile">
+          <Form.Group className="mb-3 tableText" controllId="imageFile">
             <Form.Label>File feltöltése</Form.Label>
             <Form.Control type="file" onChange={uploadFileHandler} />
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
-          <Form.Group className="mb-3" controllId="author">
+          <Form.Group className="mb-3 tableText" controllId="author">
             <Form.Label>Szerző</Form.Label>
             <Form.Control
               value={author}
@@ -187,7 +190,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="category">
+          <Form.Group className="mb-3 tableText" controllId="category">
             <Form.Label>Kategória</Form.Label>
             <Form.Control
               value={category}
@@ -195,7 +198,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="subcategory">
+          <Form.Group className="mb-3 tableText" controllId="subcategory">
             <Form.Label>Alkategória</Form.Label>
             <Form.Control
               value={subcategory}
@@ -203,7 +206,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="price">
+          <Form.Group className="mb-3 tableText" controllId="price">
             <Form.Label>Ár</Form.Label>
             <Form.Control
               value={price}
@@ -211,7 +214,15 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="description">
+          <Form.Group className="mb-3 tableText" controllId="page">
+            <Form.Label>Oldalszám</Form.Label>
+            <Form.Control
+              value={page}
+              onChange={(e) => setPage(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3 tableText" controllId="description">
             <Form.Label>Leírás</Form.Label>
             <Form.Control
               value={description}
@@ -219,7 +230,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="stock">
+          <Form.Group className="mb-3 tableText" controllId="stock">
             <Form.Label>Darab</Form.Label>
             <Form.Control
               value={stock}
@@ -227,7 +238,7 @@ export default function EditScreen() {
               required
             />
           </Form.Group>
-          <div className="mb-3">
+          <div className="mb-3 tableText">
             <Button type="submit" disabled={loadingUpdate}>
               Frissítés
             </Button>

@@ -56,9 +56,9 @@ export default function ShippingScreen() {
       </Helmet>
       <CheckoutSteps step1 step2></CheckoutSteps>
       <div className="container small-container">
-        <h1 className="my-3">Szállítás</h1>
+        <h1 className="subHeader">Szállítás</h1>
         <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controllId="fullName">
+          <Form.Group className="mb-3 tableText" controllId="fullName">
             <Form.Label>Teljes név</Form.Label>
             <Form.Control
               value={fullName}
@@ -66,7 +66,7 @@ export default function ShippingScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="address">
+          <Form.Group className="mb-3 tableText" controllId="address">
             <Form.Label>Cím</Form.Label>
             <Form.Control
               value={address}
@@ -74,7 +74,7 @@ export default function ShippingScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="city">
+          <Form.Group className="mb-3 tableText" controllId="city">
             <Form.Label>Város</Form.Label>
             <Form.Control
               value={city}
@@ -82,7 +82,7 @@ export default function ShippingScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="postalCode">
+          <Form.Group className="mb-3 tableText" controllId="postalCode">
             <Form.Label>Irányítószám</Form.Label>
             <Form.Control
               value={postalCode}
@@ -90,7 +90,7 @@ export default function ShippingScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="country">
+          <Form.Group className="mb-3 tableText" controllId="country">
             <Form.Label>Ország</Form.Label>
             <Form.Control
               value={country}
@@ -98,7 +98,7 @@ export default function ShippingScreen() {
               required
             />
           </Form.Group>
-          <div className="mb-3">
+          <div className="box">
             <Button variant="primary" type="submit">
               Tovább
             </Button>

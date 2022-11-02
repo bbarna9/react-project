@@ -87,7 +87,7 @@ export default function PlaceOrderScreen() {
       <Helmet>
         <title>Rendelés véglegesítése</title>
       </Helmet>
-      <h1 className="my-3">Rendelés véglegesítése</h1>
+      <h1 className="subHeader">Rendelés véglegesítése</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -145,19 +145,19 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Termékek</Col>
-                    <Col>{cart.itemsPrice.toFixed(2)} Ft</Col>
+                    <Col>{cart.itemsPrice.toFixed(0)} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Szállítás</Col>
-                    <Col>{cart.shippingPrice.toFixed(2)} Ft</Col>
+                    <Col>{cart.shippingPrice.toFixed(0)} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Adó</Col>
-                    <Col>{cart.taxPrice.toFixed(2)} Ft</Col>
+                    <Col>{cart.taxPrice.toFixed(0)} Ft</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -166,13 +166,14 @@ export default function PlaceOrderScreen() {
                       <strong>Összesen</strong>
                     </Col>
                     <Col>
-                      <strong>{cart.totalPrice.toFixed(2)} Ft</strong>
+                      <strong>{cart.totalPrice.toFixed(0)} Ft</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="d-grid">
                     <Button
+                      className="grid-button"
                       type="button"
                       onClick={placeOrderHandler}
                       disabled={cart.cartItems.length === 0}

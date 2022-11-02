@@ -81,7 +81,7 @@ export default function UserListScreen() {
       <Helmet>
         <title>Felhasználók</title>
       </Helmet>
-      <h1>Felhasználók</h1>
+      <h1 className="subHeader">Felhasználók</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -91,22 +91,23 @@ export default function UserListScreen() {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>NÉV</th>
-              <th>EMAIL</th>
-              <th>ADMIN</th>
-              <th>KEZELÉS</th>
+              <th className="theader">ID</th>
+              <th className="theader">NÉV</th>
+              <th className="theader">EMAIL</th>
+              <th className="theader">ADMIN</th>
+              <th className="theader">KEZELÉS</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.admin ? 'IGEN' : 'NEM'}</td>
+                <td className="tableText">{user._id}</td>
+                <td className="tableText">{user.name}</td>
+                <td className="tableText">{user.email}</td>
+                <td className="tableText">{user.admin ? 'IGEN' : 'NEM'}</td>
                 <td>
                   <Button
+                    className="extra-btn"
                     type="button"
                     variant="light"
                     onClick={() => navigate(`/admin/user/${user._id}`)}
@@ -115,6 +116,7 @@ export default function UserListScreen() {
                   </Button>
                   &nbsp;
                   <Button
+                    className="extra-btn"
                     type="button"
                     variant="light"
                     onClick={() => deleteHandler(user)}

@@ -90,7 +90,7 @@ function App() {
                   <Link to="/cart" className="nav-link">
                     Kosár
                     {cart.cartItems.length > 0 && (
-                      <Badge pill bg="danger">
+                      <Badge pill bg="danger" className="cart-counter">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Badge>
                     )}
@@ -145,13 +145,14 @@ function App() {
               : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }
         >
-          <Nav className="flex-column text-white w-100 p-2">
-            <Nav.Item>
+          <Nav className="categories">
+            <Nav.Item className="categoryTitle">
               <strong>Kategóriák</strong>
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>
                 <Link
+                  className="category"
                   to={`/search?category=${category}`}
                   onClick={() => setSidebarIsOpen(false)}
                 >
@@ -250,9 +251,6 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <footer>
-          <div className="text-center">All rights reserved</div>
-        </footer>
       </div>
     </BrowserRouter>
   );

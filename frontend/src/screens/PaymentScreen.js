@@ -35,9 +35,9 @@ export default function PaymentScreen() {
         <Helmet>
           <title>Fizetési mód</title>
         </Helmet>
-        <h1 className="my-3">Fizetési mód</h1>
+        <h1 className="subHeader">Fizetési mód</h1>
         <Form onSubmit={submitHandler}>
-          <div className="mb-3">
+          <div className="mb-3 tableText">
             <Form.Check
               type="radio"
               id="PayPal"
@@ -47,7 +47,7 @@ export default function PaymentScreen() {
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-3 box">
             <Button type="submit">Continue</Button>
           </div>
         </Form>

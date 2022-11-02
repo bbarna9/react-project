@@ -66,9 +66,9 @@ export default function ProfileScreen() {
       <Helmet>
         <title>Fiók</title>
       </Helmet>
-      <h1 className="my-3">Fiók</h1>
+      <h1 className="subHeader">Fiók</h1>
       <form onSubmit={submitHandler}>
-        <Form.Group className="mb-3" controlId="name">
+        <Form.Group className="mb-3 tableText" controlId="name">
           <Form.Label>Név</Form.Label>
           <Form.Control
             value={name}
@@ -76,7 +76,7 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="name">
+        <Form.Group className="mb-3 tableText" controlId="name">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -85,21 +85,21 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3 tableText" controlId="password">
           <Form.Label>Jelszó</Form.Label>
           <Form.Control
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3 tableText" controlId="password">
           <Form.Label>Jelszó megerősítése</Form.Label>
           <Form.Control
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
-        <div className="mb-3">
+        <div className="mb-3 box">
           <Button type="submit">Frissítés</Button>
         </div>
       </form>

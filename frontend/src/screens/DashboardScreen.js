@@ -47,7 +47,7 @@ export default function DashboardScreen() {
   }, [userInfo]);
   return (
     <div>
-      <h1>Kezelői felület</h1>
+      <h1 className="subHeader">Kezelői felület</h1>
       {loading ? (
         <LoadingBox />
       ) : error ? (
@@ -93,8 +93,8 @@ export default function DashboardScreen() {
               </Card>
             </Col>
           </Row>
-          <div className="my-3">
-            <h2>Eladások</h2>
+          <div>
+            <h2 className="subHeader">Eladások</h2>
             {summary.dailyOrders.length === 0 ? (
               <MessageBox>Nincsenek eladások</MessageBox>
             ) : (
@@ -110,8 +110,8 @@ export default function DashboardScreen() {
               ></Chart>
             )}
           </div>
-          <div className="my-3">
-            <h2>Kategóriák</h2>
+          <div className="dashScreen">
+            <h2 className="subHeader">Kategóriák</h2>
             {summary.bookCategories.length === 0 ? (
               <MessageBox>Nincs kategória</MessageBox>
             ) : (

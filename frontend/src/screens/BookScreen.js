@@ -73,16 +73,16 @@ function BookScreen() {
   ) : (
     <div>
       <Row>
-        <Col md={6}>
+        <Col md={4}>
           <img className="img-large" src={book.image} alt={book.title}></img>
         </Col>
-        <Col md={3}>
-          <ListGroup variant="flush">
+        <Col md={5}>
+          <ListGroup className="desc" variant="flush">
             <ListGroup.Item>
               <Helmet>
                 <title>{book.title}</title>
               </Helmet>
-              <h1>{book.title}</h1>
+              <h1 className="desc-header">{book.title}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
               <p>{book.author}</p>
@@ -92,6 +92,7 @@ function BookScreen() {
               <Rating rating={book.rating} reviews={book.reviews}></Rating>
             </ListGroup.Item>
             <ListGroup.Item>Ár: {book.price} Ft</ListGroup.Item>
+            <ListGroup.Item>Oldalszám: {book.page}</ListGroup.Item>
             <ListGroup.Item>
               Leírás:
               <p>{book.description}</p>
@@ -124,7 +125,11 @@ function BookScreen() {
                 {book.stock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button onClick={addToCartHandler} variant="primary">
+                      <Button
+                        onClick={addToCartHandler}
+                        variant="primary"
+                        className="grid-button"
+                      >
                         Kosárba
                       </Button>
                     </div>

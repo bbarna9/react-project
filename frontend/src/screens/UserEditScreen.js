@@ -91,14 +91,14 @@ export default function UserEdigScreen() {
       <Helmet>
         <title>Felhasználó szerkesztése</title>
       </Helmet>
-      <h1>Felhasználó szerkesztése</h1>
+      <h1 className="subHeader">Felhasználó szerkesztése</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controllId="name">
+          <Form.Group className="mb-3 tableText" controllId="name">
             <Form.Label>Név</Form.Label>
             <Form.Control
               value={name}
@@ -106,7 +106,7 @@ export default function UserEdigScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controllId="email">
+          <Form.Group className="mb-3 tableText" controllId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
               value={email}
@@ -116,14 +116,14 @@ export default function UserEdigScreen() {
             />
           </Form.Group>
           <Form.Check
-            className="mb-3"
+            className="mb-3 tableText"
             type="checkbox"
             id="admin"
             label="admin"
             checked={admin}
             onChange={(e) => setAdmin(e.target.value)}
           />
-          <div className="mb-3">
+          <div className="mb-3 tableText">
             <Button type="submit" disabled={loadingUpdate}>
               Frissítés
             </Button>

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import Book from '../components/Book';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
@@ -50,20 +52,71 @@ function HomeScreen() {
       <Helmet>
         <title>Bookshop</title>
       </Helmet>
-      <h1>Metro sorozat</h1>
-      <div className="books">
+      <h1 className="subHeader">Metro sorozat</h1>
+      <div className="firstDiv">
         {loading ? (
           <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <Row>
-            {books.map((book) => (
-              <Col key={book.key} sm={6} md={4} lg={3} className="mb-3">
-                <Book book={book}></Book>
-              </Col>
-            ))}
-          </Row>
+          <>
+            <div>
+              <Book book={books.find((x) => x.key === 'metro-2033')}></Book>
+            </div>
+            <div>
+              <Book book={books.find((x) => x.key === 'metro-2034')}></Book>
+            </div>
+            <div>
+              <Book book={books.find((x) => x.key === 'metro-2035')}></Book>
+            </div>
+            <div>
+              <Book book={books.find((x) => x.key === 'a-feny-fele')}></Book>
+            </div>
+            <div>
+              <Book book={books.find((x) => x.key === 'az-eg-gyokerei')}></Book>
+            </div>
+            <div className="more">
+              <Link to={`/search?query=metro`} className="moreText">
+                <Button className="more-btn">Több megtekintése</Button>
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+      <h1 className="subHeader">Harry Potter sorozat</h1>
+      <div className="secondDiv">
+        {loading ? (
+          <LoadingBox />
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <>
+            <div>
+              <Book
+                book={books.find((x) => x.key === 'harry-potter-bolcsek-kove')}
+              ></Book>
+            </div>
+            <div>
+              <Book
+                book={books.find((x) => x.key === 'harry-potter-titkok')}
+              ></Book>
+            </div>
+            <div>
+              <Book
+                book={books.find((x) => x.key === 'harry-potter-azkaban')}
+              ></Book>
+            </div>
+            <div>
+              <Book
+                book={books.find((x) => x.key === 'harry-potter-tuz-serlege')}
+              ></Book>
+            </div>
+            <div className="more">
+              <Link to={`/search?query=harry potter`} className="moreText">
+                <Button className="more-btn">Több megtekintése</Button>
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </div>

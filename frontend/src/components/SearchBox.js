@@ -21,11 +21,16 @@ export default function SearchBox() {
           name="q"
           id="q"
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="termékek keresése..."
+          placeholder="Keresés..."
           aria-label="Keresés"
           aria-describedby="button-search"
         ></FormControl>
-        <Button variant="outline-primary" type="submit" id="button-search">
+        <Button
+          variant="outline-primary"
+          type="submit"
+          id="button-search"
+          className="special-btn"
+        >
           <i className="fas fa-search"></i>
         </Button>
       </InputGroup>

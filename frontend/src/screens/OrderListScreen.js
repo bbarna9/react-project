@@ -7,14 +7,20 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true };
     case 'FETCH_SUCCESSFUL':
-      return { ...state, loading: false, orders: action.payload };
+      return {
+        ...state,
+        loading: false,
+        orders: action.payload,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      };
     case 'FETCH_FAILED':
       return { ...state, loading: false, error: action.payload };
     case 'DELETE_REQUEST':
@@ -31,19 +37,25 @@ const reducer = (state, action) => {
 };
 
 export default function OrderListScreen() {
+  const [
+    { loading, error, orders, pages, loadingDelete, successDelete },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    error: '',
+  });
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const page = sp.get('page') || 1;
   const { state } = useContext(Store);
   const { userInfo } = state;
-  const [{ loading, error, orders, loadingDelete, successDelete }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      error: '',
-    });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
+        //const { data } = await axios.get(`/api/orders/admin?page=${page}`, {
         const { data } = await axios.get(`/api/orders`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
@@ -61,7 +73,7 @@ export default function OrderListScreen() {
     // If there is a change in successDelete, this function will run, so we need to check.
     // If successDelete is true, the 'DELETE_RESET' will change it to false, so it will
     // activate the fetchData() function, and the list will reset.
-  }, [userInfo, successDelete]);
+  }, [page, userInfo, successDelete]);
 
   const deleteHandler = async (order) => {
     if (window.confirm('Biztos hogy törli?')) {
@@ -84,66 +96,99 @@ export default function OrderListScreen() {
       <Helmet>
         <title>Rendelések</title>
       </Helmet>
-      <h1>Rendelések</h1>
+      <h1 className="subHeader">Rendelések</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>FELHASZNÁLÓ</th>
-              <th>DÁTUM</th>
-              <th>ÖSSZEG</th>
-              <th>FIZETVE</th>
-              <th>KISZÁLLÍTVA</th>
-              <th>KEZELÉS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.user ? order.user.name : 'TÖRÖLT'}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice}</td>
-                <td>
-                  {order.isPaid ? order.paidAt.substring(0, 10) : 'NINCS'}
-                </td>
-                <td>
-                  {order.isDelivered
-                    ? order.deliveredAt.substring(0, 10)
-                    : 'NINCS'}
-                </td>
-                <td>
-                  <Button
-                    type="button"
-                    variant="light"
-                    onClick={() => {
-                      navigate(`/order/${order._id}`);
-                    }}
-                  >
-                    Részletek
-                  </Button>
-                  &nbsp;
-                  <Button
-                    type="button"
-                    variant="light"
-                    onClick={() => {
-                      deleteHandler(order);
-                    }}
-                  >
-                    Törlés
-                  </Button>
-                </td>
+        <>
+          <table className="table">
+            <thead>
+              <tr>
+                <th className="theader">ID</th>
+                <th className="theader">FELHASZNÁLÓ</th>
+                <th className="theader">DÁTUM</th>
+                <th className="theader">ÖSSZEG</th>
+                <th className="theader">FIZETVE</th>
+                <th className="theader">KISZÁLLÍTVA</th>
+                <th className="theader">KEZELÉS</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td className="tableText">{order._id}</td>
+                  <td className="tableText">
+                    {order.user ? order.user.name : 'TÖRÖLT'}
+                  </td>
+                  <td className="tableText">
+                    {order.createdAt.substring(0, 10)}
+                  </td>
+                  <td className="tableText">{order.totalPrice}</td>
+                  <td className="tableText">
+                    {order.isPaid ? order.paidAt.substring(0, 10) : 'NINCS'}
+                  </td>
+                  <td className="tableText">
+                    {order.isDelivered
+                      ? order.deliveredAt.substring(0, 10)
+                      : 'NINCS'}
+                  </td>
+                  <td>
+                    <Button
+                      className="extra-btn"
+                      type="button"
+                      variant="light"
+                      onClick={() => {
+                        navigate(`/order/${order._id}`);
+                      }}
+                    >
+                      Részletek
+                    </Button>
+                    &nbsp;
+                    <Button
+                      className="extra-btn"
+                      type="button"
+                      variant="light"
+                      onClick={() => {
+                        deleteHandler(order);
+                      }}
+                    >
+                      Törlés
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
     </div>
   );
 }
+
+/*
+
+          <div>
+            {[...Array(pages).keys()].map((x) => (
+              <Link
+                className={
+                  x + 1 === Number(page)
+                    ? 'page-btn text-bold tableText'
+                    : 'page-btn tableText'
+                }
+                key={x + 1}
+                to={`/admin/orderlist?page=${x + 1}`}
+              >
+                <Button
+                  className={
+                    Number(page) === x + 1 ? 'text-bold page-btn' : 'page-btn'
+                  }
+                  variant="dark"
+                >
+                  {x + 1}
+                </Button>
+              </Link>
+            ))}
+          </div> */

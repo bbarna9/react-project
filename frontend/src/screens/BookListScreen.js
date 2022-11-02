@@ -130,11 +130,11 @@ export default function BookListScreen() {
     <div>
       <Row>
         <Col>
-          <h1>Termékek</h1>
+          <h1 className="subHeader">Termékek</h1>
         </Col>
         <Col className="col text-end">
           <div>
-            <Button type="button" onClick={createHandler}>
+            <Button type="button" className="add-btn" onClick={createHandler}>
               Termék hozzáadása
             </Button>
           </div>
@@ -153,26 +153,27 @@ export default function BookListScreen() {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>CÍM</th>
-                <th>SZERZŐ</th>
-                <th>KATEGÓRIA</th>
-                <th>ALKATEGÓRIA</th>
-                <th>ÁR</th>
-                <th>KEZELÉS</th>
+                <th className="theader">ID</th>
+                <th className="theader">CÍM</th>
+                <th className="theader">SZERZŐ</th>
+                <th className="theader">KATEGÓRIA</th>
+                <th className="theader">ALKATEGÓRIA</th>
+                <th className="theader">ÁR</th>
+                <th className="theader">KEZELÉS</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tableText">
               {books.map((book) => (
                 <tr key={book._id}>
-                  <td>{book._id}</td>
-                  <td>{book.title}</td>
-                  <td>{book.author}</td>
-                  <td>{book.category}</td>
-                  <td>{book.subcategory}</td>
-                  <td>{book.price}</td>
+                  <td className="tableText">{book._id}</td>
+                  <td className="tableText">{book.title}</td>
+                  <td className="tableText">{book.author}</td>
+                  <td className="tableText">{book.category}</td>
+                  <td className="tableText">{book.subcategory}</td>
+                  <td className="tableText">{book.price}</td>
                   <td>
                     <Button
+                      className="extra-btn"
                       type="button"
                       variant="light"
                       onClick={() => navigate(`/admin/book/${book._id}`)}
@@ -181,6 +182,7 @@ export default function BookListScreen() {
                     </Button>
                     &nbsp;
                     <Button
+                      className="extra-btn"
                       type="button"
                       variant="light"
                       onClick={() => deleteHandler(book)}
@@ -195,11 +197,22 @@ export default function BookListScreen() {
           <div>
             {[...Array(pages).keys()].map((x) => (
               <Link
-                className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
+                className={
+                  x + 1 === Number(page)
+                    ? 'page-btn text-bold tableText'
+                    : 'page-btn tableText'
+                }
                 key={x + 1}
                 to={`/admin/booklist?page=${x + 1}`}
               >
-                {x + 1}
+                <Button
+                  className={
+                    Number(page) === x + 1 ? 'text-bold page-btn' : 'page-btn'
+                  }
+                  variant="dark"
+                >
+                  {x + 1}
+                </Button>
               </Link>
             ))}
           </div>

@@ -16,17 +16,18 @@ bookRouter.post(
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newBook = new Book({
-      title: '',
-      key: '',
-      image: '',
+      title: 'minta',
+      key: 'minta',
+      image: 'minta',
       price: 0,
-      category: '',
-      subcategory: '',
-      author: '',
+      category: 'minta',
+      subcategory: 'minta',
+      author: 'minta',
+      page: 0,
       stock: 0,
       rating: 0,
       reviews: 0,
-      description: '',
+      description: 'minta',
     });
     const book = await newBook.save();
     res.send({ message: 'Termék hozzáadva', book });
@@ -49,6 +50,7 @@ bookRouter.put(
       book.subcategory = req.body.subcategory;
       book.description = req.body.description;
       book.price = req.body.price;
+      book.page = req.body.page;
       book.stock = req.body.stock;
       await book.save();
       res.send({ message: 'Termék frissítve' });
@@ -73,7 +75,7 @@ bookRouter.delete(
   })
 );
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 7;
 
 bookRouter.get(
   '/admin',
