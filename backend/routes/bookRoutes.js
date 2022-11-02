@@ -26,7 +26,7 @@ bookRouter.post(
       page: 0,
       stock: 0,
       rating: 0,
-      reviews: 0,
+      numReviews: 0,
       description: 'minta',
     });
     const book = await newBook.save();
@@ -69,6 +69,39 @@ bookRouter.delete(
     if (book) {
       await book.remove();
       res.send({ message: 'Termék törölve' });
+    } else {
+      res.status(404).send({ message: 'Nincs ilyen könyv' });
+    }
+  })
+);
+
+bookRouter.post(
+  '/:id/reviews',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+    if (book) {
+      if (book.reviews.find((x) => x.name === req.user.name)) {
+        return res.status(400).send({ message: 'Már értékelte a könyvet' });
+      }
+
+      const review = {
+        name: req.user.name,
+        rating: Number(req.body.rating),
+        comment: req.body.comment,
+      };
+      book.reviews.push(review);
+      book.numReviews = book.reviews.length;
+      book.rating =
+        book.reviews.reduce((a, c) => c.rating + a, 0) / book.reviews.length;
+      const updatedBook = await book.save();
+      res.status(201).send({
+        message: 'Értékelés létrehozva',
+        review: updatedBook.reviews[updatedBook.reviews.length - 1],
+        numReviews: book.numReviews,
+        rating: book.rating,
+      });
     } else {
       res.status(404).send({ message: 'Nincs ilyen könyv' });
     }

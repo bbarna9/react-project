@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 // import logger from 'use-reducer-logger';
 // import data from '../data';
 import axios from 'axios';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Book from '../components/Book';
 import { Helmet } from 'react-helmet-async';
@@ -50,7 +47,7 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>Bookshop</title>
+        <title>Readers-Heaven</title>
       </Helmet>
       <h1 className="subHeader">Metro sorozat</h1>
       <div className="firstDiv">

@@ -44,7 +44,7 @@ function Book(props) {
               <Card.Title className="bookTitle">{book.title}</Card.Title>
             </Link>
             <Card.Text>{book.author}</Card.Text>
-            <Rating />
+            <Rating rating={book.rating} numReviews={book.numReviews} />
           </Col>
         </Row>
         <Row>

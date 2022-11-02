@@ -239,7 +239,11 @@ export default function EditScreen() {
             />
           </Form.Group>
           <div className="mb-3 tableText">
-            <Button type="submit" disabled={loadingUpdate}>
+            <Button
+              type="submit"
+              className="middle-btn"
+              disabled={loadingUpdate}
+            >
               Frissítés
             </Button>
             {loadingUpdate && <LoadingBox></LoadingBox>}

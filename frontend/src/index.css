@@ -69,6 +69,18 @@ main {
   margin-left: 0.5rem;
 }
 
+.middle-btn {
+  margin-left: 12.5rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.review-btn {
+  margin-left: 35.5rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
 .firstDiv {
   display: flex;
   overflow-x: scroll;
