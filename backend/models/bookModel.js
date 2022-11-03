@@ -21,7 +21,7 @@ const bookSchema = new mongoose.Schema(
     subcategory: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    page: { type: Number, required: true },
+    page: { type: Number },
     stock: { type: Number, required: true },
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
